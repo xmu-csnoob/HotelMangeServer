@@ -1,0 +1,28 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0
+                        //EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.bookManageSystem.Mapper.AdminMapper">
+    <select id="queryAllAdmins" resultType="com.example.bookManageSystem.Bean.Admin">
+        SELECT * FROM admin;
+    </select>
+    <select id="queryAdminNum" resultType="int">
+        SELECT COUNT(adminID) FROM admin;
+    </select>
+    <select id="queryAdminByPassword" resultType="com.example.bookManageSystem.Bean.Admin">
+        SELECT * FROM admin where adminName=#{adminName} and password=#{password};
+    </select>
+    <select id="queryAdminByAdminName" resultType="com.example.bookManageSystem.Bean.Admin">
+        SELECT * FROM admin WHERE adminName=#{adminName};
+    </select>
+    <select id="updatePasswordByAdminName">
+        UPDATE admin SET password=#{newPassword} WHERE adminName=#{adminName};
+    </select>
+    <select id="updateEmailByAdminName">
+        UPDATE admin SET email=#{newEmail} WHERE adminName=#{adminName};
+    </select>
+    <select id="updateTelByAdminName">
+        UPDATE admin SET tel=#{newTel} WHERE adminName=#{adminName};
+    </select>
+    <select id="getCurrentDate" resultType="String">
+        SELECT CURRENT_DATE;
+    </select>
+</mapper>

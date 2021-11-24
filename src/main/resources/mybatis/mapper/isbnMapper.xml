@@ -1,0 +1,18 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0
+                        //EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.bookManageSystem.Mapper.IsbnMapper">
+    <select id="alterIsbn">
+        UPDATE isbn
+        SET isbn=#{newIsbn},bookName=#{bookName},author=#{author},publisher=#{publisher},price=#{price},introduction=#{introduction}
+        WHERE isbn=#{oldIsbn};
+    </select>
+    <select id="insertIsbn">
+        INSERT INTO isbn (isbn, bookName, author, publisher, price, introduction, image)
+        VALUES(#{isbn},#{bookName},#{author},#{publisher},#{price},#{introduction},'http://i2.w.yun.hjfile.cn/doc/201311/7c0eb235d74f477dae718a9ae7b6b25e.jpg');
+    </select>
+    <select id="queryIsbnByIsbn" resultType="com.example.bookManageSystem.Bean.Isbn">
+        SELECT *
+        FROM isbn
+        WHERE isbn=#{isbn};
+    </select>
+</mapper>

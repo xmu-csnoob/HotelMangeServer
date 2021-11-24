@@ -1,0 +1,56 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0
+                        //EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.bookManageSystem.Mapper.RentalMapper">
+    <select id="queryRentalNum" resultType="int">
+        SELECT COUNT(bookID) FROM rental;
+    </select>
+    <select id="queryAllRentals" resultType="com.example.bookManageSystem.Bean.Rental">
+        SELECT * FROM rental ORDER BY userID
+    </select>
+    <select id="queryAllBreach" resultType="com.example.bookManageSystem.Bean.Rental">
+        SELECT * FROM rental
+        WHERE (CURRENT_DATE>dueDate AND returnDate IS NULL)OR(returnDate>rental.dueDate)
+    </select>
+    <select id="getDueDateByPRIMARY" resultType="String">
+        SELECT dueDate
+        from rental
+        where bookID=#{bookID} and userID=#{userID} and lentDate=#{lentDate} and returnDate IS NULL;
+    </select>
+    <select id="getLentDateByPRIMARY" resultType="String">
+        SELECT lentDate
+        from rental
+        where bookID=#{bookID} and userID=#{userID} and returnDate IS NULL;
+    </select>
+    <select id="getCurrentDate" resultType="String">
+        SELECT CURRENT_DATE;
+    </select>
+    <select id="getUserByBookID" resultType="com.example.bookManageSystem.Bean.User">
+        SELECT rental.userID,userName
+        from rental,user
+        where bookID=#{bookID} and returnDate IS NULL and rental.userID=user.userID;
+    </select>
+    <select resultType="com.example.bookManageSystem.Bean.Rental" id="queryRentalByBookID">
+        SELECT *
+        FROM rental
+        WHERE bookID=#{bookID};
+    </select>
+    <select id="insertLendBookInfo">
+        INSERT INTO rental(rentalID,userID, bookID, lentDate, dueDate, returnDate,overDueFine)
+        VALUES(#{rentalID},#{userID},#{bookID},#{lentDate},#{dueDate},null,0);
+    </select>
+    <select id="updateLentBookInfo">
+        UPDATE rental
+        SET returnDate=#{returnDate},overDueFine=#{overDueFine}
+        WHERE rentalID=#{rentalID};
+    </select>
+    <select id="queryRental" resultType="com.example.bookManageSystem.Bean.Rental">
+        SELECT *
+        from rental
+        where userID=#{userID} AND bookID=#{bookID} AND returnDate is null;
+    </select>
+    <select id="queryRentalByRentalID" resultType="com.example.bookManageSystem.Bean.Rental">
+        SELECT *
+        from rental
+        where rentalID=#{rentalID};
+    </select>
+</mapper>
