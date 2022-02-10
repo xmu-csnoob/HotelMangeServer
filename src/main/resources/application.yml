@@ -1,16 +1,13 @@
 spring:
   datasource:
-    url: jdbc:mysql://124.70.104.246:3306/librarySystem?serverTimezone=UTC
+    url: jdbc:mysql://123.60.75.90:3306/privilege?serverTimezone=UTC
     username: root
     password: XMUwwf@4288
     driver-class-name: com.mysql.cj.jdbc.Driver
 server:
-  port: 8080
+  port: 8012
 mybatis:
-  config-location: classpath:mybatis/mybatis.cfg.xml # mybatis配置文件所在路径
-  type-aliases-package: com.example.library.Bean # 所有Entity别名类所在包
+  type-aliases-package: cn.edu.xmu.wwf.privilege # 所有Entity别名类所在包
   mapper-locations: classpath:mybatis/mapper/**/*.xml # mapper映射文件
-pagehelper:
-  helper-dialect: mysql
-  reasonable: true
-  support-methods-arguments: true
+  configuration:
+    map-underscore-to-camel-case: true

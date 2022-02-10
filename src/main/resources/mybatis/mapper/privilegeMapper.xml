@@ -1,0 +1,20 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0
+                        //EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.xmu.wwf.privilege.mapper.PrivilegeMapper">
+    <insert id="insertPrivilege" parameterType="cn.edu.xmu.wwf.privilege.model.po.PrivilegePo" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO privilege(id,role_id,name)
+        values(#{id},#{roleId},#{name});
+    </insert>
+    <select id="selectPrivilegeByPrimaryKey" resultType="cn.edu.xmu.wwf.privilege.model.po.PrivilegePo">
+        SELECT * FROM privilege
+        where privilege.id=#{id};
+    </select>
+    <select id="selectPrivilegeByRoleId" resultType="java.util.List">
+        SELECT * FROM privilege
+        where privilege.role_id=#{roleId};
+    </select>
+    <delete id="deletePrivilege" parameterType="cn.edu.xmu.wwf.privilege.model.po.PrivilegePo">
+        DELETE FROM privilege
+        where id=#{id};
+    </delete>
+</mapper>
