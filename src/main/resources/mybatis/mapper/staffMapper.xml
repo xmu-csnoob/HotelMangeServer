@@ -1,0 +1,7 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0
+                        //EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.xmu.wwf.privilege.mapper.StaffMapper">
+    <select id="getPasswordByUsername" parameterType="java.lang.String" resultType="java.lang.String">
+        SELECT password from hotel.staff where name=#{username};
+    </select>
+</mapper>

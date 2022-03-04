@@ -1,0 +1,16 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0
+                        //EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.xmu.wwf.privilege.mapper.RoleMapper">
+    <insert id="insertRole" parameterType="cn.edu.xmu.wwf.privilege.model.po.RolePo" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO role(depart_id,name)
+        VALUES(#{departId},#{name});
+    </insert>
+    <select id="getRoleByPrimaryKey" resultType="cn.edu.xmu.wwf.privilege.model.po.RolePo">
+        SELECT * FROM role
+        WHERE id=#{id};
+    </select>
+    <delete id="deleteRole">
+        DELETE FROM role
+        WHERE id=#{id};
+    </delete>
+</mapper>

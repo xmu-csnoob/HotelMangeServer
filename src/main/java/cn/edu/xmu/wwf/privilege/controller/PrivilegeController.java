@@ -1,6 +1,5 @@
 package cn.edu.xmu.wwf.privilege.controller;
 
-import cn.edu.xmu.wwf.privilege.model.vo.CreatePrivRetVo;
 import cn.edu.xmu.wwf.privilege.model.vo.CreatePrivVo;
 import cn.edu.xmu.wwf.privilege.model.vo.PrivilegeVo;
 import cn.edu.xmu.wwf.privilege.service.PrivilegeService;
@@ -35,11 +34,11 @@ public class PrivilegeController {
      * todo:补充各类错误处理
      */
     @PostMapping(value="",produces = "application/json;charset=UTF-8")
-    public ReturnObject<CreatePrivRetVo> createPrivilege(@RequestBody CreatePrivVo createPrivVo, BindingResult bindingResult){
+    public ReturnObject<PrivilegeVo> createPrivilege(@RequestBody CreatePrivVo createPrivVo, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             return new ReturnObject<>(ReturnNo.DATA_FORMAT_ERR0R,"数据格式错误");
         }
-        return new ReturnObject<CreatePrivRetVo>(privilegeService.addPrivilege(createPrivVo));
+        return new ReturnObject<PrivilegeVo>(privilegeService.addPrivilege(createPrivVo));
     }
     @GetMapping(value = "/{id}",produces = "application/json;charset=UTF-8")
     public ReturnObject getPrivilege(@PathVariable int id){

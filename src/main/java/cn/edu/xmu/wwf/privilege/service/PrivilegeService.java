@@ -3,7 +3,6 @@ package cn.edu.xmu.wwf.privilege.service;
 import cn.edu.xmu.wwf.privilege.dao.PrivilegeDao;
 import cn.edu.xmu.wwf.privilege.model.bo.Privilege;
 import cn.edu.xmu.wwf.privilege.model.po.PrivilegePo;
-import cn.edu.xmu.wwf.privilege.model.vo.CreatePrivRetVo;
 import cn.edu.xmu.wwf.privilege.model.vo.CreatePrivVo;
 import cn.edu.xmu.wwf.privilege.model.vo.PrivilegeVo;
 import cn.edu.xmu.wwf.privilege.utils.ReturnObject;
@@ -14,12 +13,12 @@ import org.springframework.stereotype.Service;
 public class PrivilegeService {
     @Autowired
     PrivilegeDao privilegeDao;
-    public CreatePrivRetVo addPrivilege(CreatePrivVo createPrivVo){
+    public PrivilegeVo addPrivilege(CreatePrivVo createPrivVo){
         Privilege privilege=new Privilege();
         privilege.setName(createPrivVo.getName());
         privilege.setRoleId(createPrivVo.getRoleId());
         PrivilegePo privilegePo=privilegeDao.addPriv(privilege);
-        CreatePrivRetVo createPrivRetVo=new CreatePrivRetVo();
+        PrivilegeVo createPrivRetVo=new PrivilegeVo();
         createPrivRetVo.setId(privilegePo.getId());
         createPrivRetVo.setName(privilegePo.getName());
         createPrivRetVo.setRoleId(privilegePo.getRoleId());

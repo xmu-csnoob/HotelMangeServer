@@ -3,8 +3,8 @@ package cn.edu.xmu.wwf.privilege.model.vo;
 import lombok.Data;
 
 @Data
-public class CreatePrivRetVo {
+public class RoleVo {
     int id;
-    int roleId;
+    int departId;
     String name;
 }
