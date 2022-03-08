@@ -4,4 +4,16 @@
     <select id="getPasswordByUsername" parameterType="java.lang.String" resultType="java.lang.String">
         SELECT password from hotel.staff where name=#{username};
     </select>
+    <select id="selectAll" resultType="cn.edu.xmu.wwf.privilege.model.po.StaffPo">
+        SELECT * FROM hotel.staff
+    </select>
+    <select id="getStaffNum" resultType="java.lang.Integer">
+        SELECT COUNT(staff.id) from hotel.staff;
+    </select>
+    <select id="selectByDepartId" resultType="cn.edu.xmu.wwf.privilege.model.po.StaffPo">
+        SELECT * FROM hotel.staff where depart_id=#{departId}
+    </select>
+    <select id="getStaffNumByDepartId" resultType="java.lang.Integer">
+        SELECT COUNT(staff.id) from hotel.staff where depart_id=#{departId};
+    </select>
 </mapper>
