@@ -39,6 +39,6 @@ public class StaffController {
     }
     @GetMapping("/ip")
     public ReturnObject getIp(){
-        return new ReturnObject(request.getRemoteUser());
+        return new ReturnObject(request.getRemoteAddr());
     }
 }
