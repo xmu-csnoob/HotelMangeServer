@@ -3,9 +3,11 @@ package cn.edu.xmu.wwf.privilege.utils;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.TokenExpiredException;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+import java.util.Base64;
 import java.util.Date;
 
 @Component
@@ -91,5 +93,9 @@ public class JWTUtils {
         }
         //如果剩余过期时间少于过期时常的一般时 需要更新
         return (expiresAt.getTime()-System.currentTimeMillis()) < (expireTime>>1);
+    }
+    public static String getUserName(String token){
+        DecodedJWT jwt=JWT.decode(token);
+        return jwt.getClaim("sub").asString();
     }
 }

@@ -6,6 +6,7 @@ import cn.edu.xmu.wwf.privilege.model.po.StaffPo;
 import cn.edu.xmu.wwf.privilege.model.vo.LoginStaffVo;
 import cn.edu.xmu.wwf.privilege.model.vo.StaffInfoVo;
 import cn.edu.xmu.wwf.privilege.model.vo.StaffLoginRetVo;
+import cn.edu.xmu.wwf.privilege.model.vo.StaffRetVo;
 import cn.edu.xmu.wwf.privilege.utils.JWTUtils;
 import cn.edu.xmu.wwf.privilege.utils.ReturnObject;
 import com.github.pagehelper.PageHelper;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -34,29 +36,38 @@ public class StaffService {
             return new ReturnObject<StaffLoginRetVo>(staffLoginRetVo);
         }
     }
-    public ReturnObject<PageInfo<StaffInfoVo>> getAllStaffInfo(int pageNum,int pageSize){
-        PageHelper.startPage(pageNum,pageSize);
-        List<StaffPo> staffPoList=staffDao.getAllStaff();
-        return getPageInfoReturnObject(pageSize, staffPoList);
+    public ReturnObject<PageInfo<StaffInfoVo>> getAllStaffInfo(int pageNum,int pageSize,String username){
+        StaffPo staffPo=staffDao.getStaffByUsername(username);
+        List<StaffPo> staffPoList=staffDao.getAllStaff(pageNum,pageSize,staffPo.getDepartId(),staffPo.getLevel());
+        return getPageInfoReturnObject(pageSize, staffPoList,staffPo.getDepartId());
     }
     public ReturnObject<PageInfo<StaffInfoVo>> getStaffInfoByDepartId(int pageNum,int pageSize,int departId){
         PageHelper.startPage(pageNum,pageSize);
         List<StaffPo> staffPoList=staffDao.getStaffByDepartId(departId);
-        return getPageInfoReturnObject(pageSize, staffPoList);
+        return getPageInfoReturnObject(pageSize, staffPoList,departId);
     }
-
-    private ReturnObject<PageInfo<StaffInfoVo>> getPageInfoReturnObject(int pageSize, List<StaffPo> staffPoList) {
+    public ReturnObject<StaffRetVo> getStaffRetVoByUsername(String username){
+        StaffPo staffPo=staffDao.getStaffByUsername(username);
+        StaffRetVo staffRetVo=new StaffRetVo(staffPo);
+        return new ReturnObject<>(staffRetVo);
+    }
+    private ReturnObject<PageInfo<StaffInfoVo>> getPageInfoReturnObject(int pageSize, List<StaffPo> staffPoList,int departId) {
         List<StaffInfoVo> staffInfoVos=new ArrayList<>();
         for(StaffPo staffPo:staffPoList){
             StaffInfoVo staffInfoVo=new StaffInfoVo(staffPo);
             staffInfoVos.add(staffInfoVo);
         }
         PageInfo<StaffInfoVo> pageInfo=new PageInfo<>(staffInfoVos);
-        int staffNum=staffDao.getStaffNum();
-        if(staffNum%pageSize==0){
-            pageInfo.setPages(staffDao.getStaffNum()/pageSize);
+        int staffNum=0;
+        if(departId==20){
+            staffNum=staffDao.getStaffNum();
         }else{
-            pageInfo.setPages(staffDao.getStaffNum()/pageSize+1);
+            staffNum=staffDao.getStaffNumByDepartId(departId);
+        }
+        if(staffNum%pageSize==0){
+            pageInfo.setPages(staffNum/pageSize);
+        }else{
+            pageInfo.setPages(staffNum/pageSize+1);
         }
         return new ReturnObject<>(pageInfo);
     }

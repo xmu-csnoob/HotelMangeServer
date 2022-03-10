@@ -15,8 +15,11 @@ public class StaffDao {
     public String getPassword(String username){
         return staffMapper.getPasswordByUsername(username);
     }
-    public List<StaffPo> getAllStaff(){
-        return staffMapper.selectAll();
+    public List<StaffPo> getAllStaff(int pageNum,int pageSize,int departId,int level){
+        PageHelper.startPage(pageNum,pageSize);
+        if(departId==20)
+            return staffMapper.selectAll();
+        return staffMapper.selectWithLimit(departId,level);
     }
     public int getStaffNum(){
         return staffMapper.getStaffNum();
@@ -26,5 +29,8 @@ public class StaffDao {
     }
     public int getStaffNumByDepartId(int departId){
         return staffMapper.getStaffNumByDepartId(departId);
+    }
+    public StaffPo getStaffByUsername(String username){
+        return staffMapper.getStaffByUsername(username);
     }
 }

@@ -20,7 +20,6 @@ public class UserLoginInterceptor implements HandlerInterceptor {
             //false拒接访问，抓包就不会有options请求了
         }
         String token = request.getHeader("token");
-        System.out.println(token);
         //token不存在
         if (token == null || token.equals(""))
         {

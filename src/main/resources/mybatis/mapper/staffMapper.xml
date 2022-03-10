@@ -5,15 +5,21 @@
         SELECT password from hotel.staff where name=#{username};
     </select>
     <select id="selectAll" resultType="cn.edu.xmu.wwf.privilege.model.po.StaffPo">
-        SELECT * FROM hotel.staff
+        SELECT * FROM hotel.staff order by depart_id desc
     </select>
     <select id="getStaffNum" resultType="java.lang.Integer">
         SELECT COUNT(staff.id) from hotel.staff;
     </select>
     <select id="selectByDepartId" resultType="cn.edu.xmu.wwf.privilege.model.po.StaffPo">
-        SELECT * FROM hotel.staff where depart_id=#{departId}
+        SELECT * FROM hotel.staff where depart_id=#{departId} order by depart_id desc
     </select>
     <select id="getStaffNumByDepartId" resultType="java.lang.Integer">
         SELECT COUNT(staff.id) from hotel.staff where depart_id=#{departId};
+    </select>
+    <select id="getStaffByUsername" resultType="cn.edu.xmu.wwf.privilege.model.po.StaffPo">
+        SELECT * FROM hotel.staff where name=#{username}
+    </select>
+    <select id="selectWithLimit" resultType="cn.edu.xmu.wwf.privilege.model.po.StaffPo">
+        SELECT * FROM hotel.staff where depart_id=#{departId} and (level &lt;= #{level})
     </select>
 </mapper>

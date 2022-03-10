@@ -10,8 +10,10 @@ import java.util.List;
 public interface StaffMapper {
     String getPasswordByUsername(String username);
     List<StaffPo> selectAll();
+    List<StaffPo> selectWithLimit(int departId,int level);
     List<StaffPo> selectByDepartId(int departId);
     int getStaffNum();
     int getStaffNumByDepartId(int departId);
     int updateLastLoginTime(String username);
+    StaffPo getStaffByUsername(String username);
 }
